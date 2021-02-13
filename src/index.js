@@ -1,0 +1,7 @@
+import './components/game.component'
+import './components/missile.component'
+import './components/fire.component'
+import './components/enemy-spawner.component'
+import './components/enemy.component'
+import './components/explosion.component'
+import './systems/gun-system'

@@ -1,0 +1,84 @@
+<html>
+
+<head>
+  <script
+    src="https://cdn.jsdelivr.net/gh/aframevr/aframe@d46464268ad8ef541511ba5f87c8f1830066d7de/dist/aframe-master.min.js"></script>
+  <!-- <script src="https://c0dr.nl:1337/vorlon.js"></script> -->
+  <script src="https://sfxr.me/riffwave.js"></script>
+  <script src="https://sfxr.me/sfxr.js"></script>
+  <script src="main.js"></script>
+  <style>
+    .btn{
+      z-index: 160;
+      height: 160px;
+      width: 160px;
+      top: 10px;
+     
+      position: absolute;
+
+      background-size: contain;
+    }    
+    #connect-gun {
+      left: 10px;
+      background-image: url(./images/gun_disconnected.png);
+    }
+
+    #connect-gun.connected {
+      background-image: url(./images/gun_connected.png);
+    }
+
+    #enter-xr {     
+      left: 180px;  
+      background-image: url(./images/xr_ready.png);
+    }
+
+    #enter-xr.disabled {
+      background-image: url(./images/xr_not_ready.png);
+    }
+  </style>
+</head>
+
+<body>
+
+  <a-scene  
+  vr-mode-ui="enabled:true; enterARButton: #enter-xr; enterVRButton: #none"   
+    background="color:black;transparent:true" bt-gun game>
+    <a href="#" id="connect-gun" class="btn">
+    </a>
+    <a href="#" id="enter-xr" class="btn disabled" disabled>
+    </a>
+    <a href="#" id="none"></a>
+    <a-assets>
+      <a-asset-item id="missile-model" src="/models/missile.glb"></a-asset-item>
+      <a-mixin id="missile-mixin" gltf-model="#missile-model"></a-mixin>
+      <a-asset-item id="enemy-model" src="/models/enemy.glb"></a-asset-item>
+      <a-mixin id="enemy-mixin" gltf-model="#enemy-model" scale=".4 .4 .4"></a-mixin>
+    </a-assets>
+    <a-entity enemy-spawner></a-entity>
+    <!-- <a-entity mixin="missile-mixin" position="1 0 -3"></a-entity>
+    <a-entity mixin="enemy-mixin" position="-1 0 -3"></a-entity> -->
+    <a-entity id="missile-group"></a-entity>
+    <a-entity id="enemy-group"></a-entity>
+    <!--<a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane> -->
+    <a-entity id="left-hand" tracked-controls="controller: 4;hand:left; idPrefix: Hand">
+      <a-entity collider-check raycaster="far:1;objects: .touchable;showLine:true" rotation="0 0 0"
+        position="0 0 -0.3 "></a-entity>
+      <!-- <a-entity id="hand" raycaster="far:.1;objects: .touchable;" rotation="-60 0 60" position="0 -.03 -.02 "
+            gltf-model="src:url(https://cdn.aframe.io/controllers/hands/leftHandLow.glb)">
+        </a-entity> -->
+    </a-entity>
+
+    <a-entity id="right-hand"  fire tracked-controls="controller: 5;hand:right; idPrefix: Hand">
+      <a-entity collider-check raycaster="far:1;objects: .touchable;showLine:true" rotation="0 0 0" position="0 0 -0.3">
+      </a-entity>
+      <!-- <a-entity id="hand" rotation="-60 0 -60" position="0 -.03 -.02 " raycaster="far:.1;objects: .touchable;"
+            gltf-model="src:url(https://cdn.aframe.io/controllers/hands/rightHandLow.glb)">
+        </a-entity> -->
+    </a-entity>
+    <a-entity id="camera" camera look-controls wasd-controls="fly:true"/>
+  </a-scene>
+</body>
+
+</html>
