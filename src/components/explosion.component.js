@@ -3,6 +3,8 @@
 // const outward = 2000;//1000;
 // const downward = 1500;//1000;
 
+const { sound } = require("../utils/sound");
+
 AFRAME.registerComponent('explosion', {
     schema: {
         color: {
@@ -23,6 +25,7 @@ AFRAME.registerComponent('explosion', {
         lifetime:{default:500}
     },
     init: function () {
+        sound.play(sound.explosion);
         this.particleCount = 175;
         this.particles = new THREE.BufferGeometry();
         this.velocities = [];
