@@ -25,7 +25,7 @@ AFRAME.registerComponent('explosion', {
         lifetime:{default:500}
     },
     init: function () {
-        sound.play(sound.explosion);
+        sound.play(sound.explosion, this.el.object3D);
         this.particleCount = 175;
         this.particles = new THREE.BufferGeometry();
         this.velocities = [];

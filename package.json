@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --config webpack.dev",
-        "start-https": "http-server ./dist -c-1 -S -C ./c0dr_nl.pem -K ./c0dr_nl.key",
+        "start-https": "http-server ./dist -c-1 -S -C ./c0dr.crt -K ./c0dr.key -p 443",
         "clean": "rm -rf dist/; mkdir -p dist",
         "buildProd": "webpack --config webpack.prod --progress --colors",
         "build": "webpack --config webpack.dev --progress --colors",

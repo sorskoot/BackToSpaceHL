@@ -8,18 +8,18 @@
   <script src="https://sfxr.me/sfxr.js"></script>
   <script src="main.js"></script>
   <style>
-    .btn{
-      z-index: 160;
+    .btn {
+
       height: 160px;
       width: 160px;
-      top: 10px;
-     
+      top: 320px;
       position: absolute;
 
       background-size: contain;
-    }    
+    }
+
     #connect-gun {
-      left: 10px;
+      left: 30px;
       background-image: url(./images/gun_disconnected.png);
     }
 
@@ -27,26 +27,51 @@
       background-image: url(./images/gun_connected.png);
     }
 
-    #enter-xr {     
-      left: 180px;  
+    #enter-xr {
+      right: 30px;
       background-image: url(./images/xr_ready.png);
     }
 
     #enter-xr.disabled {
       background-image: url(./images/xr_not_ready.png);
     }
+#titlescreen{
+  width:100%;
+  height:100%;
+  background-image: url(./images/background.png);
+}
+    #titlescreen-container {
+      top: 50%;
+      transform: translateY(-50%);
+      position: relative;
+      z-index: 160;
+      width: 408px;
+      height: 500px;
+      margin: auto;
+    }
+
+    .title {
+      background-image: url(images/title.png);
+      width: 408px;
+      height: 304px;
+      position: absolute
+    }
   </style>
 </head>
 
 <body>
-
-  <a-scene  
-  vr-mode-ui="enabled:true; enterARButton: #enter-xr; enterVRButton: #none"   
+  <audio id="music" src="licensed/9- Dark Fantasy Studio - Stars and galaxy.mp3" autostart="0"></audio>
+  <a-scene vr-mode-ui="enabled:true; enterARButton: #enter-xr; enterVRButton: #none"
     background="color:black;transparent:true" bt-gun game>
-    <a href="#" id="connect-gun" class="btn">
-    </a>
-    <a href="#" id="enter-xr" class="btn disabled" disabled>
-    </a>
+    <div id="titlescreen">
+      <div id="titlescreen-container">
+        <div class="title">&nbsp;</div>
+        <a href="#" id="connect-gun" class="btn">&nbsp;
+        </a>
+        <a href="#" id="enter-xr" class="btn disabled" disabled>&nbsp;
+        </a>
+      </div>
+    </div>
     <a href="#" id="none"></a>
     <a-assets>
       <a-asset-item id="missile-model" src="/models/missile.glb"></a-asset-item>
@@ -70,15 +95,16 @@
         </a-entity> -->
     </a-entity>
 
-    <a-entity id="right-hand"  fire tracked-controls="controller: 5;hand:right; idPrefix: Hand">
-      <a-entity collider-check raycaster="far:1;objects: .touchable;showLine:false" rotation="0 0 0" position="0 0 -0.3">
+    <a-entity id="right-hand" fire tracked-controls="controller: 5;hand:right; idPrefix: Hand">
+      <a-entity collider-check raycaster="far:1;objects: .touchable;showLine:false" rotation="-15 0 0"
+        position="0 0 -0.3">
       </a-entity>
       <!-- <a-box scale=".05 .05 .05" color="green"></a-box> -->
       <!-- <a-entity id="hand" rotation="-60 0 -60" position="0 -.03 -.02 " raycaster="far:.1;objects: .touchable;"
             gltf-model="src:url(https://cdn.aframe.io/controllers/hands/rightHandLow.glb)">
         </a-entity> -->
     </a-entity>
-    <a-entity id="camera" camera look-controls wasd-controls="fly:true"/>
+    <a-entity id="camera" camera look-controls wasd-controls="fly:true" />
   </a-scene>
 </body>
 

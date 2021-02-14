@@ -1,29 +1,39 @@
-// import { jsfxr } from './jsfxr';
+let audiopool = [];
+let pannerNodes = [];
 
-// let audiopool = [];
-// for (let i = 0; i < 50; i++) {
-//     audiopool.push(new Audio());
-// }
-// let currentIndex = 0;
-// const fire = [0, , 0.33, 0.0853, 0.1802, 0.5299, 0.2, -0.2399, -0.0599, , , -1, , 0.8922, -0.5931, , 0.0246, -0.0455, 1, , , 0.0036, , 0.28],
-//     explosion = [3, , 0.58, 0.35, 0.0547, 0.16, , -0.18, , , , -0.3774, 0.6619, , , , 0.598, -0.1327, 1, , , , , 0.28],
-//     gameover = [3, 0.09, 0.67, 0.35, 0.93, 0.2, , -0.12, , , , -0.3774, 0.62, , , , 0.1399, -0.3, 1, , , , , 0.28];
+// change this so the audio context gets (loaded if not already) 
+// when the game actually starts.
+let audioContext;
 
-// let sounds = [
-//     jsfxr(fire),
-//     jsfxr(explosion),
-//     jsfxr(gameover)
-// ]
-// export const sound = {
-//     play: function (params) {
-//         audiopool[currentIndex].src = sounds[params];
-//         audiopool[currentIndex].play();
-//         currentIndex = (currentIndex + 1) % 50;
-//     },
-//     fire:0,
-//     explosion:1,
-//     gameover:2
-var sounds = {
+function InitAudio() {
+    //     if (audioContext) return;
+    audioContext = new AudioContext();
+ //   audioContext.listener.upX.value = 0;
+    audioContext.listener.upY.value = 1;
+  //  audioContext.listener.upZ.value = 0;
+    
+    let gain = audioContext.createGain();
+    gain.connect(audioContext.destination);
+
+    for (let i = 0; i < 25; i++) {
+      //  const audio = new AudioBuffer();
+        
+     //   audiopool.push(audio);
+       // const element = audioContext.createMediaElementSource(audio);
+        const pn = new PannerNode(audioContext, {
+            panningModel: 'HRTF',
+            distanceModel: 'exponential',
+        });
+
+     //   element.connect(pn);
+        pn.connect(gain);
+        pannerNodes.push(pn);
+    }
+}
+let currentSfxIndex = 0;
+
+
+var shoot = {
     "oldParams": true,
     "wave_type": 3,
     "p_env_attack": 0.035955594242536346,
@@ -78,28 +88,43 @@ let explosion = {
     "p_lpf_resonance": -0.002493939081006105,
     "p_hpf_freq": 0.127,
     "p_hpf_ramp": -0.24,
-    "sound_vol": 0.073,
+    "sound_vol": 1,
     "sample_rate": 44100,
     "sample_size": 8,
     "p_vib_delay": null
   }
 
-var s = new SoundEffect(sounds).generate();
-var explosion_sfx = new SoundEffect(explosion).generate();
-// returns a webaudio object if supported, or an Audio object
 
+let soundfx = [
+    new SoundEffect(shoot).generate().buffer,
+    new SoundEffect(explosion).generate().buffer
+];
 
 export const sound = {
-    play: function (params) {
-        switch (params) {
-            case 1:
-                s.getAudio().play();
-                break;
-            case 2:
-                explosion_sfx.getAudio().play();
-                break;
-        }
+    init: InitAudio,
+    play: function (params, p) {
+        let pos=p.getWorldPosition(zeroVector);
+        pannerNodes[currentSfxIndex].positionX.value = pos.x;
+        pannerNodes[currentSfxIndex].positionY.value = pos.y;
+        pannerNodes[currentSfxIndex].positionZ.value = pos.z;
+
+        var n = new AudioBufferSourceNode(audioContext);
+        n.buffer = new AudioBuffer({length:soundfx[params].length, sampleRate:44100,numberOfChannels:1})
+        n.buffer.copyToChannel(soundfx[params],0);
+        n.connect(pannerNodes[currentSfxIndex]);
+        n.start();
+        // audiopool[currentSfxIndex].buffer = soundfx[params];
+        // audiopool[currentSfxIndex].play();
+        currentSfxIndex = (currentSfxIndex + 1) % 25;
+        // switch (params) {
+        //     case 1:
+        //         s.getAudio().play();
+        //         break;
+        //     case 2:
+        //         explosion_sfx.getAudio().play();
+        //         break;
+        // }
     },
-    fire: 1,
-    explosion:2,
+    fire: 0,
+    explosion:1,
 }

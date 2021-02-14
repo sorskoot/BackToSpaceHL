@@ -1,3 +1,5 @@
+const { sound } = require("../utils/sound");
+
 AFRAME.registerComponent('missile', {
     schema: {
         speed: {
@@ -25,6 +27,7 @@ AFRAME.registerComponent('missile', {
         this.el.setAttribute('scale','.4 .4 .4');
         this.missilegroup = document.getElementById("missile-group");;
         this.el.setAttribute("raycaster","far:2;showLine:false;objects:.enemy");
+        sound.play(sound.fire, this.el.object3D);
         this.el.addEventListener('raycaster-intersection', (e)=>{            
             let elm = e.detail.els[0];
             let explosion = document.createElement('a-entity');

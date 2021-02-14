@@ -1,4 +1,6 @@
 node_modules
+dist
 c0dr.crt
 c0dr.key
 c0dr.pfx
+licensed
