@@ -1,3 +1,4 @@
+const { default: Particles } = require("../utils/particles");
 const { sound } = require("../utils/sound");
 
 AFRAME.registerComponent('missile', {
@@ -28,6 +29,8 @@ AFRAME.registerComponent('missile', {
         this.missilegroup = document.getElementById("missile-group");;
         this.el.setAttribute("raycaster","far:2;showLine:false;objects:.enemy");
         sound.play(sound.fire, this.el.object3D);
+        this.particles = new Particles();
+        this.particles.CreateParticles(this.el, '/images/test.png',.1);
         this.el.addEventListener('raycaster-intersection', (e)=>{            
             let elm = e.detail.els[0];
             let explosion = document.createElement('a-entity');
@@ -36,7 +39,9 @@ AFRAME.registerComponent('missile', {
             this.missilegroup.appendChild(explosion);
             elm.remove();
             this.el.remove();
+            this.particles.remove();
         });          
+        
     },
     update: function (oldData) { },
 
@@ -47,9 +52,11 @@ AFRAME.registerComponent('missile', {
         pos.x -= this.data.direction.x * this.data.speed * (timeDelta / 1000);
         pos.y -= (this.data.direction.y + this.data.yCorrection) * this.data.speed * (timeDelta / 1000);
         pos.z -=  this.data.direction.z * this.data.speed * (timeDelta / 1000);
+        this.particles.UpdateParticles(timeDelta,pos);
         this.life -= timeDelta;
         if (this.life < 0) {
              this.el.remove();
+             this.particles.remove();
          }
     }   
 });

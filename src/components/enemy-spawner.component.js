@@ -1,7 +1,7 @@
 AFRAME.registerComponent('enemy-spawner', {
     schema: {
         spawnrate: {
-            default: 15000
+            default: 5000
         },
         distance: {
             default: 5
@@ -10,6 +10,7 @@ AFRAME.registerComponent('enemy-spawner', {
     init: function () {
         this.counter = 0;//this.data.spawnrate;
         this.enemygroup = document.getElementById("enemy-group");        
+       // this.active = true;
         this.el.sceneEl.addEventListener('enter-vr', () => {
             this.active = true;
         })

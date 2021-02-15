@@ -1,7 +1,7 @@
 import vertShader from './../shaders/particle.vert.glsl';
 import fragShader from './../shaders/particle.frag.glsl';
 
-const PARTICLE_COUNT = 50;
+const PARTICLE_COUNT = 75;
 
 export default class Particles {
 
@@ -63,10 +63,12 @@ export default class Particles {
                 extensions: {
                     derivatives: true
                 },
+                side:THREE.DoubleSide,
                 transparent: true,
                 //wireframe: false,
                 blending: THREE.AdditiveBlending,
                 depthWrite: false,
+                depthTest: false,
                 uniforms: {
                     cameraeye: { value: { x: 0.0, y: 0.0, z: 0.0 } },
                     pointsize: { value: 64.0 },
@@ -81,7 +83,7 @@ export default class Particles {
         this.particleSystem = new THREE.Points(
             this.particles,
             this.particleMaterial);
-
+            this.particleSystem.frustumCulled = false;
 
         this.particleEntity = document.createElement('a-entity');
         this.particleEntity.setObject3D('particle-system', this.particleSystem);
