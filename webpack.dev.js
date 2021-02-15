@@ -9,7 +9,7 @@ module.exports = merge(common, {
         https: true,
         port:443,     
         disableHostCheck: true,
-        host: 'dev1.c0dr.nl',
+        host: 'c0dr.nl',
         contentBase: __dirname+'/dist',
         key: fs.readFileSync('c0dr.key'),
         cert: fs.readFileSync('c0dr.crt'),
