@@ -13,7 +13,7 @@
 	 gl_Position = projectionMatrix * modelViewPosition;
      float p = pointsize/(6.0/fLife);
       
-     gl_PointSize =  p / gl_Position.w * 12.0;
+     gl_PointSize =  p/ gl_Position.w*12.0;
     
         //gl_PointSize = 16.0;
 
