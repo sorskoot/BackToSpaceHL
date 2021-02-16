@@ -59,13 +59,22 @@
       height: 304px;
       position: absolute
     }
+
+    body::after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      z-index: -1;
+      content: url(./images/xr_ready.png) url(./images/gun_connected.png)
+    }
   </style>
 </head>
 
 <body>
   <audio id="music" src="licensed/9- Dark Fantasy Studio - Stars and galaxy.mp3" autostart="0"></audio>
   <a-scene vr-mode-ui="enabled:true; enterARButton: #enter-xr; enterVRButton: #none"
-    background="color:black;transparent:true" bt-gun game>
+    background="transparent:true" bt-gun game>
     <div id="titlescreen">
       <div id="titlescreen-container">
         <div class="title">&nbsp;</div>
@@ -107,7 +116,6 @@
             gltf-model="src:url(https://cdn.aframe.io/controllers/hands/rightHandLow.glb)">
         </a-entity> -->
     </a-entity>
-   <a-box scale=".05 .05 .05" position="1 0 -3" color="green"></a-box>
     <a-entity id="camera" camera look-controls wasd-controls="fly:true" />
   </a-scene>
 </body>

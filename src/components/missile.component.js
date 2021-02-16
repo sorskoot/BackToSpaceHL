@@ -30,7 +30,7 @@ AFRAME.registerComponent('missile', {
         this.el.setAttribute("raycaster","far:2;showLine:false;objects:.enemy");
         sound.play(sound.fire, this.el.object3D);
         this.particles = new Particles();
-        this.particles.CreateParticles(this.el, '/images/test.png',.1);
+        this.particles.CreateParticles(this.el, '/images/explosion.png',.1);
         this.el.addEventListener('raycaster-intersection', (e)=>{            
             let elm = e.detail.els[0];
             let explosion = document.createElement('a-entity');

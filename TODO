@@ -1,19 +1,22 @@
 Must have:
-    ☐ limit the amount of enemies
+    ☐ Shoot on pinch as well
     ✔ add explosion sound @done(21-02-13 18:03)
-    ☐ add sound when spawning
-    ☐ add music
+    ✔ add music @done(21-02-15 20:22)
     ✔ spatial sound @done(21-02-13 19:04)
-    ☐ particles on rockets
-    ☐ particles on ship
-    ☐ title
-    ☐ center connect and xr buttons below title
-    ☐ show score near gun
-        try to remove rotation, maybe add lookat to camera
+    ✔ particles on rockets @done(21-02-15 20:22)
+    ✔ particles on ship @done(21-02-15 20:22)
+    ✔ better Explosion @done(21-02-16 13:39)
+    ✔ title @done(21-02-15 20:22)
+    ✔ center connect and xr buttons below title @done(21-02-15 20:23)
+    
 
 Should have:
+    ☐ limit the amount of enemies
     ☐ Game play
     ☐ toggle to mute music
+    ☐ add sound when spawning
+    ☐ show score near gun
+         try to remove rotation, maybe add lookat to camera
 
 Bug:
     ☐ Everything is based around 0,0 if you move around, the missiles twist and the spatial audio is off.
